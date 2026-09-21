@@ -25,7 +25,7 @@ contains the answer.
 **Why this target:**
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
-
+I set this at 4 of 5 rather than 5 of 5 because my first test question (the bike time comparison) is weaker than the others, its expects field could reasonably be '6', '18', or '12' depending on whether the answer states the raw numbers or the computed difference, making it more likely to get marked a miss than my other four questions, which each have one clear, unambiguous fact to match.
 ---
 
 ## 2. Every answer names a source
@@ -35,7 +35,7 @@ Every answer the system produces names at least one source document.
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
-
+The grounding instruction directly requires the model to cite a source, so I'd expect it to comply most of the time, but it's not fully guaranteed: the model still has to correctly trace its answer back to the specific chunk it was given, and instruction-following isn't perfectly reliable, so there's a real chance it drops the citation on a harder question.
 ---
 
 ## 3. The relevance gate stops out-of-corpus questions
@@ -68,12 +68,12 @@ in at least 4 of 5 tries.
           sentence cut in half at either end."
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
-
+Chunks average between 60 and 150 tokens, one topic each.
 
 
 **Why this target:**
 
-
+Chunk size is between 60-150 because the corpus I chose had 1-3 sentences in a single reply, which is quite short — making the chunk size smaller would mean cutting the already short reply into parts, while a greater size would add other replies into one.
 
 ---
 
@@ -87,11 +87,11 @@ in at least 4 of 5 tries.
      present — anything, as long as it names a number or an observable
      outcome. -->
 
-
+When retrieve returns chunks that represent conflicting advice for the same question, the answer presents both sides rather than picking one — checked by manually reviewing output for any question in my set where conflicting chunks appear, at least once before submission.
 
 **Why this target:**
 
-
+My corpus is full of threads where replies disagree, so collapsing that down to one confident answer would hide the real complexity the corpus captures.
 
 ---
 
