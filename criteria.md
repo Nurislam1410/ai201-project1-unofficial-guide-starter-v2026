@@ -52,7 +52,7 @@ in at least 4 of 5 tries.
 **Why this target:**
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
-
+I set 4 of 5 as the target because I expected some ambiguity near the cutoff, but my actual measured gap turned out wide and clean (0.505 to 0.807), so all 5 out-of-scope questions were refused, not just 4. I'm keeping the original 4-of-5 target since it was written before I had this data, but noting the actual result exceeded it.
 ---
 
 ## 4. Something about your chunks

@@ -124,7 +124,16 @@ The library being open until 2am is a trap. It's a resource, not a schedule.
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| How much faster riding a bike then walking?                   | Yes | 0.424 |
+| Is there any risks riding a bike on winter season?            | Yes | 0.486 |
+| What is the safest choice for laptop's RAM?                   | Yes | 0.505 |
+| What is the best time to schedule your laundary at the dorms? | Yes | 0.364 |
+| When is the best time to study at Ridgeway Cafe?              | Yes | 0.322 |
+| What is the capital of Mongolia?                              | No  | 0.893 |
+| How do I change the oil in a diesel engine?                   | No  | 0.896 |
+| Who won the 1994 World Cup?                                   | No  | 0.893 |
+| What is the recommended dosage of ibuprofen for a headache?   | No  | 0.807 |
+| How do I write a for loop in Rust?                            | No  | 0.835 |
 
 ## How I Used AI
 
