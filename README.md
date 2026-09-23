@@ -29,8 +29,8 @@
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size: 60-150 tokens**
+**Overlap: none**
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -41,6 +41,7 @@
      more than pretending you got it right first time.
 
      Milestone 3. -->
+**Reasoning: I picked 60-150 tokens after reading the corpus in Milestone 1. The replies in advice_threads are short, self-contained takes (1-3 sentences each), authored as discrete units separated by blank lines. A smaller chunk size risked cutting an already-short reply mid-sentence; a larger size risked merging multiple people's separate (and sometimes disagreeing) replies into one chunk, which would blur whose advice was whose. There's no overlap because chunks aren't sliding windows over continuous text, so each chunk is one complete reply (with its thread's question prepended for context), so there's nothing to overlap between them. After actually running the chunker, real chunks averaged 202 characters (132-281 range) which is roughly 35-70 tokens and smaller than my 60-150 prediction. That's because I estimated before measuring; several replies turned out shorter than I'd assumed when reading them in Milestone 1. I didn't force the number to match the prediction, so the actual test that mattered was whether each chunk stands alone, and 4 of 5 sampled chunks did. So, one didn't clearly answer its own thread's question**
 
 ## Sample Chunks
 
@@ -53,28 +54,48 @@
 
      Milestone 3. -->
 
-**Chunk 1** — source: `` — produced by: ``
+**Chunk 1** — source: `thread_bike_commute.txt#0` — produced by: `chunker.py::split_documents`
 
+THREAD: Is a bike worth it for a 20 minute walk commute?
+
+--- reply 1 (14 votes) ---
+Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three.
 ```
 ```
 
-**Chunk 2** — source: `` — produced by: ``
+**Chunk 2** — source: `thread_first_gen.txt#1` — produced by: `chunker.py::split_documents`
 
+THREAD: Anything specific for first-generation students?
+
+--- reply 2 (41 votes) ---
+The thing I'd say: the unwritten rules are the hard part, not the coursework. Ask about the unwritten rules explicitly. People are happy to explain them and nobody volunteers them.
 ```
 ```
 
-**Chunk 3** — source: `` — produced by: ``
+**Chunk 3** — source: `thread_laptop_specs.txt#2` — produced by: `chunker.py::split_documents`
 
+THREAD: How much laptop do I actually need for CS courses?
+
+--- reply 3 (12 votes) ---
+I did two years on an 8GB machine and it was fine until the last project, at which point it very much wasn't. 16 is the answer.
 ```
 ```
 
-**Chunk 4** — source: `` — produced by: ``
+**Chunk 4** — source: `thread_parking.txt#1` — produced by: `chunker.py::split_documents`
 
+THREAD: Worth getting a parking permit?
+
+--- reply 2 (21 votes) ---
+Street parking on Verrill is legal and free and unmarked, which is why half the upper years do it.
 ```
 ```
 
-**Chunk 5** — source: `` — produced by: ``
+**Chunk 5** — source: `thread_sleep_schedule.txt#1` — produced by: `chunker.py::split_documents`
 
+THREAD: Everyone says fix your sleep. Does it actually matter?
+
+--- reply 2 (37 votes) ---
+The library being open until 2am is a trap. It's a resource, not a schedule.
 ```
 ```
 
