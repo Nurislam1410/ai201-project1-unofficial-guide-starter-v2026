@@ -2,19 +2,6 @@
 
 **Nurislam Saliev** — corpus: `advice_threads`
 
-> **This file is your submission.** Fill it in as you go — most sections get
-> written during the milestone that produces them, not at the end.
->
-> How the starter works, and every command you'll need, is in `RUNNING.md`.
-> Leave that file alone.
->
-> **Paste everything as text.** No screenshots, no video. A typed table gets
-> full credit; a picture of the same table gets none.
->
-> Delete these instruction blocks as you replace them. The `<!-- -->` comments
-> are notes to you and don't show up when the page renders — you can leave them
-> or remove them.
-
 ---
 
 # Unit 1
@@ -31,6 +18,7 @@ This is a RAG system built on advice_threads, a corpus of 23 Q&A discussion thre
 ## Chunking Strategy
 
 **Chunk size: 60-150 tokens**
+
 **Overlap: none**
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
@@ -57,47 +45,47 @@ This is a RAG system built on advice_threads, a corpus of 23 Q&A discussion thre
 
 **Chunk 1** — source: `thread_bike_commute.txt#0` — produced by: `chunker.py::split_documents`
 
+```
 THREAD: Is a bike worth it for a 20 minute walk commute?
 
 --- reply 1 (14 votes) ---
 Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three.
 ```
-```
 
 **Chunk 2** — source: `thread_first_gen.txt#1` — produced by: `chunker.py::split_documents`
 
+```
 THREAD: Anything specific for first-generation students?
 
 --- reply 2 (41 votes) ---
 The thing I'd say: the unwritten rules are the hard part, not the coursework. Ask about the unwritten rules explicitly. People are happy to explain them and nobody volunteers them.
 ```
-```
 
 **Chunk 3** — source: `thread_laptop_specs.txt#2` — produced by: `chunker.py::split_documents`
 
+```
 THREAD: How much laptop do I actually need for CS courses?
 
 --- reply 3 (12 votes) ---
 I did two years on an 8GB machine and it was fine until the last project, at which point it very much wasn't. 16 is the answer.
 ```
-```
 
 **Chunk 4** — source: `thread_parking.txt#1` — produced by: `chunker.py::split_documents`
 
+```
 THREAD: Worth getting a parking permit?
 
 --- reply 2 (21 votes) ---
 Street parking on Verrill is legal and free and unmarked, which is why half the upper years do it.
 ```
-```
 
 **Chunk 5** — source: `thread_sleep_schedule.txt#1` — produced by: `chunker.py::split_documents`
 
+```
 THREAD: Everyone says fix your sleep. Does it actually matter?
 
 --- reply 2 (37 votes) ---
 The library being open until 2am is a trap. It's a resource, not a schedule.
-```
 ```
 
 ## Sample Answer
