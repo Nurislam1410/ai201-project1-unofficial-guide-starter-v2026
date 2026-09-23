@@ -1,6 +1,6 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+**Nurislam Saliev** — corpus: `advice_threads`
 
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
@@ -21,6 +21,7 @@
 
 ## What This Does
 
+This is a RAG system built on advice_threads, a corpus of 23 Q&A discussion threads about practical campus life like housing, commuting, coursework, dorm life. It answers specific questions that have a clear answer somewhere in the threads, like how much faster biking is than walking, or when laundry is free. Since replies in these threads sometimes disagree with each other, the system is built to show both sides of a disagreement instead of picking one.
 <!-- Three or four sentences. Which corpus you picked, and the kinds of
      questions your system answers. Write it for someone who has never seen
      this repo.
@@ -146,9 +147,9 @@ The library being open until 2am is a trap. It's a resource, not a schedule.
 
      Milestone 5. -->
 
-**1.**
+**1.  I asked Claude to explain how to fix the chunker in Milestone 3, and it walked me through splitting on paragraph breaks instead of character count. But I noticed the thread's question line would end up as its own useless chunk with no answer in it, so Claude hadn't caught that, I did. We went back and forth on three options and I picked prepending the question to each reply chunk instead.**
 
-**2.**
+**2. For Milestone 4, I asked Claude to review my grounding instruction. It pointed out that nothing in it told the model what to do when documents disagree, even though my own criterion 5 was about exactly that. It suggested one line to add. I added it, then tested it on a real question and the model actually started showing both sides of the disagreement instead of picking one.**
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
