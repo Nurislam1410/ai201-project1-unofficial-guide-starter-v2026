@@ -95,9 +95,10 @@ The library being open until 2am is a trap. It's a resource, not a schedule.
 
 **Question: Is a bike worth it for a 20 minute walk commute?**
 
-**Answer: Whether a bike is worth it for a 20-minute walk commute depends on your perspective, as the documents present both pros and cons. One commenter notes that a bike cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for autumn use (thread_bike_commute.txt). However, another commenter sold their bike because winter salt destroys drivetrains in one season, and someone else points out that covered bike parking fills up by 9 am (thread_bike_commute.txt). Sources retrieved: thread_bike_commute.txt, thread_commuting.txt (best distance 0.115, cutoff 0.6)**
+**Answer:**
 
 ```
+Whether a bike is worth it for a 20-minute walk commute depends on your perspective, as the documents present both pros and cons. One commenter notes that a bike cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for autumn use (thread_bike_commute.txt). However, another commenter sold their bike because winter salt destroys drivetrains in one season, and someone else points out that covered bike parking fills up by 9 am (thread_bike_commute.txt). Sources retrieved: thread_bike_commute.txt, thread_commuting.txt (best distance 0.115, cutoff 0.6)
 ```
 
 **My relevance cutoff:**
