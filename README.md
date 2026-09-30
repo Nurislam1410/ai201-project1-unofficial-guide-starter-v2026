@@ -140,6 +140,8 @@ hether a bike is worth it for a 20-minute walk commute depends on your perspecti
 
 **2. For Milestone 4, I asked Claude to review my grounding instruction. It pointed out that nothing in it told the model what to do when documents disagree, even though my own criterion 5 was about exactly that. It suggested one line to add. I added it, then tested it on a real question and the model actually started showing both sides of the disagreement instead of picking one.**
 
+**3. For Milestone 4, I wrote the merge-strategy code myself in chunker.py, with Claude giving me the plan and catching bugs through hints instead of telling me the fix directly (like the index counting wrong, and the `.join()` mistake with the title). I decided when to switch to Claude writing code directly, since I only had 2 hours left and needed to finish testing, not just writing.**
+
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
@@ -326,6 +328,22 @@ Produced by: `store.py::search` (retrieval) and `generate.py::answer_from_chunks
      not.
 
      Milestone 5. -->
+Even after the fix, a few things are still not fully resolved:
+
+- Criterion 4 says "average between 60-150 tokens, **one topic each**." The
+  average part is fixed now, but since some chunks merge more than one reply
+  together, those chunks might now hold more than one topic, not one. I
+  didn't check this by hand for all 46 chunks, since I ran out of time to verify
+  it properly.
+- The fix made retrieval distance worse for every one of the 5 questions,
+  and winter-risk is now close to my 0.6 cutoff (0.570). Nothing actually
+  failed this run, but the safety margin shrank a lot, and I didn't have
+  time to try a smaller `MIN_CHUNK_SIZE` to see if a smaller merge would
+  still fix criterion 4 without hurting retrieval this much.
+- Criterion 5 (conflicting chunks) was confirmed 3/3 with the old chunking,
+  but I didn't re-test it with the new "after" chunker, so I don't actually
+  know if merging replies changed that behavior, for better or worse.
+
 
 ## What I'd Do Differently
 
@@ -333,3 +351,9 @@ Produced by: `store.py::search` (retrieval) and `generate.py::answer_from_chunks
      differently, and why?
 
      Milestone 5. -->
+- Criterion 4: I would measure the corpus first, before writing a number
+  down, instead of predicting the chunk size from just reading it. That's
+  the actual mistake, not the chunking method itself.
+- Criterion 5: "any question in my set" was too vague. I would name the
+  actual question that shows conflict before committing my final 5, not
+  assume one of them would.
