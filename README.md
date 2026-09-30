@@ -265,6 +265,19 @@ Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
      low, and which one you'd tighten and to what.
 
      Milestone 3. -->
+     
+**Criterion 4:** Failure because of which the miss happened occurred in
+stage: chunking, more specifically due to its mechanism. Thankfully, the
+failure was not related to output accuracy or performance of the model,
+but related to my incorrect prediction made at Milestone 1 of the
+Project 1, when I have not viewed the corpus completely myself. So, the
+issue was that the mechanism does not set a chunk size, but it divides
+into chunks by the set borders (in my case: empty line).
+
+**Shared pattern (criteria 4 and 5):** One thing that both criterion 4
+and 5 share is that their predictions were made before being exposed to
+the real data, and the miss in one and the break in the other are not
+by a bug in the pipeline, but because of my mistake.
 
 ## The Improvement
 
