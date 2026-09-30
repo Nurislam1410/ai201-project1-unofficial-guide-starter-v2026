@@ -95,6 +95,13 @@ My corpus is full of threads where replies disagree, so collapsing that down to 
 
 ---
 
+> **Revised in unit 2:** Presents both sides rather than picking one, checked specifically using the question "Is a bike worth it for a 20 minute walk commute?", since only its chunks disagree, they are  "Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three." and "Counterpoint, I sold mine. Between November and March the paths are either icy or salted and salt destroys a drivetrain in one season.".
+
+---
+
+> **Why revised:** I assumed wrongly, turns out to be only 2 replies in thread_bike_commute disagree, the rest either agree or are complementary facts from different threads. So, the only real disagreement happens in thread_bike_commute between 2 replies mentioned above only. So, none of the 5 test questions test this criterion, and that is the main reason, I had to revise the criterion.
+
+---
 <!-- ─────────────────────────────────────────────────────────────────────────
      UNIT 2 — read this before you change anything above.
 

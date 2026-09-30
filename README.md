@@ -98,7 +98,7 @@ The library being open until 2am is a trap. It's a resource, not a schedule.
 **Answer:**
 
 ```
-Whether a bike is worth it for a 20-minute walk commute depends on your perspective, as the documents present both pros and cons. One commenter notes that a bike cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for autumn use (thread_bike_commute.txt). However, another commenter sold their bike because winter salt destroys drivetrains in one season, and someone else points out that covered bike parking fills up by 9 am (thread_bike_commute.txt). Sources retrieved: thread_bike_commute.txt, thread_commuting.txt (best distance 0.115, cutoff 0.6)
+hether a bike is worth it for a 20-minute walk commute depends on your perspective, as the documents present both pros and cons. One commenter notes that a bike cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for autumn use (thread_bike_commute.txt). However, another commenter sold their bike because winter salt destroys drivetrains in one season, and someone else points out that covered bike parking fills up by 9 am (thread_bike_commute.txt). Sources retrieved: thread_bike_commute.txt, thread_commuting.txt (best distance 0.115, cutoff 0.6W)
 ```
 
 **My relevance cutoff:**
@@ -167,15 +167,64 @@ Whether a bike is worth it for a 20-minute walk commute depends on your perspect
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer                      | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 2. Every answer names a source                              | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 3. Gate stops out-of-corpus questions                       | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 4. Chunks average between 60 and 150 tokens, one topic each | 60-150 | 35-70 | 35-70 | 35-70 | MISSED |
+| 5. Conflicting chunks → answer shows both sides, not one| both sides shown | both sides shown | both sides shown | both sides shown | revised, checked, confirmed 3/3|
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+     
+REAL outputs for 
+**Criterion 1 and 2:**
+
+Produced by: `store.py::search` (retrieval) and `generate.py::answer_from_chunks` (generation)
+
+How much faster riding a bike then walking? — run 1
+
+- Best distance: 0.4588 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+```
+A bike cuts an 18-minute walk down to about 6 minutes (from `thread_bike_commute.txt`).
+```
+
+**Criterion 3 - Gate stops out-of-corpus questions**
+
+Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
+
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.893 | refused |
+| How do I change the oil in a diesel engine? | 0.896 | refused |
+
+**Criterion 4 — Chunks average between 60 and 150 tokens**
+
+Produced by: `chunker.py::split_documents` (see Sample Chunks above for real examples — chunks are unchanged since Milestone 3)
+
+Measured average chunk length: 202 characters (range 132-281), roughly
+35-70 tokens — below the 60-150 token target.
+
+**Criterion 5 - Conflicting chunks → answer shows both sides, not one**
+
+Produced by: `generate.py::answer_from_chunks`, using the grounding
+instruction at generate.py:283 ("If the documents disagree with each
+other on the question, say so and present both sides rather than
+picking one.")
+
+python app.py ask "Is a bike worth it for a 20 minute walk commute?"
+  (best distance 0.115, cutoff 0.6)
+
+Whether a bike is worth it for a 20-minute walk commute depends on your perspective, as the documents provide both positive and negative points. One user notes a bike cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for autumn use (thread_bike_commute.txt). However, another user sold their bike because winter salt destroys drivetrains in one season, and someone else points out that covered bike parking fills up by 9 am (thread_bike_commute.txt). 
+
+Source: thread_bike_commute.txt
+
+Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+1 model calls this session, 634 tokens (510 in, 124 out)
+
 
 ## Verdicts
 
@@ -190,11 +239,12 @@ Whether a bike is worth it for a 20-minute walk commute depends on your perspect
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1. Retrieved chunk contains the answer                      | MET | 5 of 5 met, exceeds the target 4 of 5 |
+| 2. Every answer names a source                              | MET | 5 of 5 met, strikes the target 5 of 5 |
+| 3. Gate stops out-of-corpus questions                       | MET | 5 of 5 met, exceeds the target 4 of 5 |
+| 4. Chunks average between 60 and 150 tokens, one topic each | MISSED | actual average chunk size is between 35-70, my prediction missed it - 60-150 |
+| 5. Conflicting chunks → answer shows both sides, not one    | revised, checked, confirmed 3/3 | ran 3 times from scratch, all 3 test verified |
+
 
 ## Diagnoses
 
