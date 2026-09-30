@@ -64,7 +64,7 @@ def fallback_split(
         start = 0
         index = 0
         while start < len(doc.text):
-            piece = doc.text[start : start + chunk_size].strip()
+            piece = doc.text[start: start + chunk_size].strip()
             if piece:
                 chunks.append(
                     Chunk(
@@ -98,22 +98,55 @@ def split_documents(documents: list[Document]) -> list[Chunk]:
         splitting on a character count?
     """
     chunks: list[Chunk] = []
+    MAX_CHUNK_SIZE = 600
+    MIN_CHUNK_SIZE = 240
+
     for doc in documents:
         pieces = [p.strip() for p in doc.text.split("\n\n") if p.strip()]
         if not pieces:
             continue
         title = pieces[0]
         index = 0
+
+        buffer = []
+        buffer_chars_now = 0
+
         for piece in pieces[1:]:
-            chunks.append(
+            """chunks.append(
                 Chunk(
                     text=f"{title}\n\n{piece}",
                     source=doc.source,
                     index=index,
                     produced_by="chunker.py::split_documents",
                 )
+            )"""
+            buffer.append(piece)
+            buffer_chars_now += len(piece)
+            if buffer_chars_now >= MIN_CHUNK_SIZE:
+                chunk_text = f"{title}\n\n" + "\n\n".join(buffer)
+                chunks.append(
+                    Chunk(
+                        text=chunk_text,
+                        source=doc.source,
+                        index=index,
+                        produced_by="chunker.py::split_documents"
+                    )
+                )
+                buffer = []
+                buffer_chars_now = 0
+                index += 1
+        if buffer:
+            chunk_text = f"{title}\n\n" + "\n\n".join(buffer)
+            chunks.append(
+                Chunk(
+                    text=chunk_text,
+                    source=doc.source,
+                    index=index,
+                    produced_by="chunker.py::split_documents"
+                )
             )
             index += 1
+
     return chunks
 
 

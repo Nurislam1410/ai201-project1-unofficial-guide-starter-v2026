@@ -295,14 +295,21 @@ by a bug in the pipeline, but because of my mistake.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 4. Chunks average between 60 and 150 tokens | 60-150 | ~74 tokens | ~74 tokens | ~74 tokens | MET |
+| 5. Conflicting chunks → answer shows both sides | both sides shown | not independently re-tested against the new chunking | — | — | unchanged (see before-run evidence) |
 
-**Did it help?**
+Produced by: `store.py::search` (retrieval) and `generate.py::answer_from_chunks`
+(generation), index variant `after`, chunker `chunker.py::split_documents`
+(merged strategy).
 
+**How much faster riding a bike then walking? — run 1**
+- Best distance: 0.4777 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt, thread_parking.txt
+
+**Did it help?** Yes, it did help criterion 4. So, average chunk size moved from 35-70 tokens to about 74 tokens, which now lands inside the 60-150 target. So, this part is fixed. But it did not come free: every single one of the 5 questions got a worse (bigger) distance than before, and winter risk in particular went from 0.486 to 0.570, which is now close to my 0.6 cutoff. Thankfully, none of them actually crossed the cutoff, so criteria 1, 2 and 3 are all still MET because every answer still had the correct fact and cited the right source, and the gate still refused all 5 out-of-scope questions. So, nothing broke this time, but the safety margin got a lot smaller. This is actually what I predicted myself back in Unit 1, when I said a bigger chunk size risks merging separate replies together and blurring whose advice is whose. So overall: the fix worked for criterion 4, but it cost me some retrieval precision everywhere else.
 <!-- Say plainly whether it did, and how you know. If it made things worse,
      say that — a change that backfired, honestly reported, earns full credit
      and is more interesting than one that worked. What matters is that you can
